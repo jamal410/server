@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
     <style>
 #header{
     
@@ -65,10 +65,12 @@
 
 </body>
 <script>
+const baseUrl = "https://upset-erin-shrimp.cyclic.app"
+
     function postTodo() {
         let todoText = document.querySelector("#todo").value
 
-        axios.post(`https://fine-gold-hare-ring.cyclic.app/todo`, {
+        axios.post(`${baseUrl}/todo`, {
             text: todoText
         })
             .then(function (response) {
@@ -90,7 +92,7 @@
     }
 
     function getAllTodos() {
-        axios.get(`https://fine-gold-hare-ring.cyclic.app/todos`)
+        axios.get(`${baseUrl}/todos`)
             .then(function (response) {
                 console.log(response.data);
 
@@ -106,9 +108,9 @@
             })
     }
 
-    setInterval(() => {
-        getAllTodos()
-    }, 3000);
+    // setInterval(() => {
+    //     getAllTodos()
+    // }, 3000);
 
     </script>
 
