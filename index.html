@@ -7,19 +7,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+#header{
+    
+    color: rgb(21, 255, 0);
+    align-items: center;
+    display: flex;
+    margin-left: 40%;
+}
+#main1{
+    align-items: center;
+    display: flex;
+    margin-left:40%;
+}
+
+
+
+
+#refresh{
+    align-items: center;
+    display: flex;
+    margin-left: 40%;
+}
+#add{
+    align-items: center;
+    display: flex;
+    margin-left: 40%;
+}
+
+
+
+
+
+
+
+
+
+
+    </style>
 </head>
 
 
 <body>
-    <h1>TODO APP with server</h1>
+    <div id="header"></header> <h1>TODO APP with server</h1></div>
 
 
     <form onsubmit="postTodo(); return false">
-        todo: <input id="todo" type="text" required>
-        <button type="submit">Add</button>
+      <div id="main1">  todo: <input id="todo" type="text" required> </div>
+     <div id="add" ><button type="submit">Add</button> </div> 
+   
     </form>
-    <button onclick="getAllTodos()">Refresh</button>
-
+    
     <h3 id="result"> </h3>
 
 
@@ -27,22 +65,22 @@
 
 </body>
 <script>
-    let api = "https://zany-attire-mite.cyclic.app/"
     function postTodo() {
         let todoText = document.querySelector("#todo").value
 
-        axios.post(`${api}todo`, {
+        axios.post(`https://fine-gold-hare-ring.cyclic.app/todo`, {
             text: todoText
         })
             .then(function (response) {
                 console.log(response.data);
 
-                document.querySelector("#result").innerHTML = ""
+                 
+                document.querySelector("#result").innerHTML = response.data.message;
 
-                response.data.data.map(eachTodo => {
-                    document.querySelector("#result").innerHTML += eachTodo
-                    document.querySelector("#result").innerHTML += '<br>'
-                })
+                // response.data.data.map(eachTodo => {
+                    // document.querySelector("#result").innerHTML += eachTodo
+                    // document.querySelector("#result").innerHTML += '<br>'
+                // })
 
             })
             .catch(function (error) {
@@ -52,14 +90,14 @@
     }
 
     function getAllTodos() {
-        axios.get(`${api}todos`)
+        axios.get(`https://fine-gold-hare-ring.cyclic.app/todos`)
             .then(function (response) {
                 console.log(response.data);
 
                 document.querySelector("#result").innerHTML = ""
 
                 response.data.data.map(eachTodo => {
-                    document.querySelector("#result").innerHTML += eachTodo
+                    document.querySelector("#result").innerHTML += eachTodo.text
                     document.querySelector("#result").innerHTML += '<br>'
                 })
             })
