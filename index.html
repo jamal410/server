@@ -60,10 +60,10 @@ body{
      <div id="add" ><button type="submit">Add</button> </div> 
    
     </form>
-    
+    <h5 id="message"></h5>
     <h3 id="result"> </h3>
 
-
+ 
 
 
 </body>
@@ -79,8 +79,12 @@ const baseUrl = "https://upset-erin-shrimp.cyclic.app"
             .then(function (response) {
                 console.log(response.data);
 
-                 
-                document.querySelector("#result").innerHTML = ''
+              getAllTodos() ;  
+                document.querySelector("#message").innerHTML =response.data.message
+setTimeout(() => {
+    document.querySelector("#message").innerHTML="";
+},2000);
+
 
                 // response.data.data.map(eachTodo => {
                     // document.querySelector("#result").innerHTML += eachTodo
@@ -111,11 +115,11 @@ const baseUrl = "https://upset-erin-shrimp.cyclic.app"
             })
     }
 
-    getAllTodos()
 
+getAllTodos();
     setInterval(() => {
         getAllTodos()
-    }, 3000);
+    }, 5000);
 
     </script>
 
