@@ -14,7 +14,7 @@ const todoModel = mongoose.model('todos', todoSchema);
     
 
 const app = express()
-const port = process.env.PORT ||3000
+const port = process.env.PORT ||3000;
 
 
 app.use(express.json());
@@ -36,7 +36,7 @@ app.post('/todo', (req, res) => {
         }
     })
 })
-app.get( '/todos', (req,res) =>{
+app.get( '/todos', (req,res) => {
 
     todoModel.find({}, (err,data) => {
         if (!err) {
@@ -44,14 +44,80 @@ app.get( '/todos', (req,res) =>{
                 message:"here is your todo list" ,
                 data:data  
             })
-        }else{
+        } else {
 res.status(500).send({
     message:"server error"
 })
         }
     });
 })
-     
+
+app.put('/todo/:id', async (req,res)  => {
+
+
+    try { 
+        let  data = await todoModel
+        .findByIdAndUpdate(
+            req.params.id,
+            { text: req.body.text},
+            { new:true }
+)
+            .exec();
+
+console.log( 'updated: ', data);
+
+        res.send({
+          message:"todo is updated successfully",  
+                data:data
+            })
+
+          }  catch (error) {
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    })
+    
+
+  app.delete('/todos', (req,res) => {
+
+    todoModel.deleteMany({}, (err,data) => {
+        if (!err) {
+res.send({
+    message:"All todos has been deleted successfully",
+})
+ } else {
+            res.status(500).send({
+                message:"server error"
+            })
+        }
+  })   ;
+})
+app.delete('/todo/:', (req,res) =>{
+
+    todoModel.deleteOne({ _id:req.params.id },(err, deleteData) => {
+        console.log("deleted: ", deleteData);
+        if (!err) {
+
+            if (deleteData.deletedcount !== 0) {
+                res.send({
+                    message: "Todo has been deleted successfully",
+                })
+             } else {
+                res.send({
+                    message:"No todo found with this id:"  +req.params.id,
+                })
+             }
+        
+
+            } else {
+                res.status(500).send({
+                    message: "server error"
+                })
+            }
+    });
+})
+
   app.listen(port, () => {
     console.log( `server app is listening on port ${port}`)
   })  
