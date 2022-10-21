@@ -93,7 +93,7 @@ res.send({
         }
   })   ;
 })
-app.delete('/todo/:', (req,res) =>{
+app.delete('/todo/:id', (req,res) =>{
 
     todoModel.deleteOne({ _id:req.params.id },(err, deleteData) => {
         console.log("deleted: ", deleteData);

@@ -60,6 +60,10 @@ body{
      <div id="add" ><button type="submit">Add</button> </div> 
    
     </form>
+
+    <form onsubmit="deleteAllTodos(); return false">
+    <button type="submit" id="deleteAll" onclick="">Delete All</button>
+</form>
     <h5 id="message"style= "height:20pxl"></h5>
     <h3 id="result"> </h3>
 
@@ -67,7 +71,7 @@ body{
 <script>
     let baseUrl=
    ( document.location.protocol === 'https:') ?
-   "https://ewewe.cyclic.app"
+   "https://upset-erin-shrimp.cyclic.app"
    :
    "http://localhost:3000";
 
@@ -112,7 +116,7 @@ setTimeout(() => {
                 document.querySelector("#result").innerHTML = ""
 
                 response.data.data.map(eachTodo => {
-                document.querySelector("#result").innerHTML += `<span id='span-${eachTodo._id}'> ${eachTodo.text} </span>`;
+                document.querySelector("#result").innerHTML += `<div id= "spans"><span id='span-${eachTodo._id}'> ${eachTodo.text} </span>`;
                     document.querySelector("#result").innerHTML +=
                                   `<form id='form-${eachTodo._id}' style="display:none;" onsubmit="updateTodo('${eachTodo._id}'); return false">
                                     <input id='input-${eachTodo._id}' value='${eachTodo.text}'  />
@@ -120,8 +124,8 @@ setTimeout(() => {
                                     </form>`;
 
                             document.querySelector("#result").innerHTML += 
-                            `&nbsp;&nbsp; <button onclick="deleteTodo('${eachtodo._id}')" id='delete-${eachTodo._id}'> Delete </button>
-                            <button onclick="editTodo('${eachTodo._id}')" id='edit-${eachTodo._id}'> Edit </button>`
+                            `&nbsp;&nbsp;<div id= "btns"> <button onclick="deleteTodo('${eachTodo._id}')" id='delete-${eachTodo._id}'> Delete </button>
+                            <button onclick="editTodo('${eachTodo._id}')" id='edit-${eachTodo._id}'> Edit </button></div></div>`
 
                             document.querySelector("#result").innerHTML += '<br>'
                                 })
